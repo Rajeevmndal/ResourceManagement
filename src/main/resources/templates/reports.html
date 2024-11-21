@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Resource Reports</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #f4f4f4;
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th, td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #007bff;
+        color: white;
+    }
+
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    .btn {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 15px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+
+    .btn:hover {
+        background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+<div class="card">
+  <h1>Comprehensive Resource Report</h1>
+
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Resource Name</th>
+      <th>Category</th>
+      <th>Status</th>
+      <th>Assigned To</th>
+      <th>Created At</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="resource : ${resources}">
+      <td th:text="${resource.id}">1</td>
+      <td th:text="${resource.name}">Projector</td>
+      <td th:text="${resource.category}">Equipment</td>
+      <td th:text="${resource.status}">Available</td>
+      <td th:text="${resource.assignedTo}">John Doe</td>
+      <td th:text="${#dates.format(resource.createdAt, 'yyyy-MM-dd HH:mm:ss')}">2024-01-01 12:00:00</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <a href="/admin" class="btn">Back to Admin Dashboard</a>
+</div>
+
+</body>
+</html>

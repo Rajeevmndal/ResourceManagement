@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Create Allocation</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Apply a soft yellow background color to the page */
+    body {
+      background-color: #f9f9e9;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Style for the container */
+    .container {
+      background-color: #fff; /* White background for the form container */
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Style the table header */
+    h1 {
+      text-align: center;
+      color: #4CAF50; /* Green color for the header */
+    }
+
+    /* Style for the error message */
+    .alert {
+      margin-bottom: 20px;
+    }
+
+    /* Button Styling */
+    .btn-primary {
+      background-color: #4CAF50; /* Green background for the button */
+      border-color: #4CAF50;
+    }
+
+    .btn-primary:hover {
+      background-color: #45a049; /* Slightly darker green on hover */
+      border-color: #45a049;
+    }
+
+    /* Style form labels and inputs */
+    .form-label {
+      color: #333; /* Dark text for labels */
+    }
+
+    .form-control {
+      border: 1px solid #ddd; /* Light border for form inputs */
+      padding: 8px;
+    }
+
+    /* Form field styling */
+    .mb-3 {
+      margin-bottom: 15px;
+    }
+
+    /* Style the dropdowns */
+    .form-select {
+      border: 1px solid #ddd;
+      background-color: #fff;
+      color: #333;
+    }
+
+    /* Style for form inputs and labels on focus */
+    .form-control:focus, .form-select:focus {
+      border-color: #4CAF50;
+      box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+    }
+  </style>
+</head>
+<body>
+<div class="container mt-4">
+  <h1>Create New Allocation</h1>
+
+  <!-- Show error message -->
+  <div th:if="${error}" class="alert alert-danger" role="alert">
+    <span th:text="${error}"></span>
+  </div>
+
+  <!-- Form for creating allocation -->
+  <form id="allocationForm" th:action="@{/allocations}" th:object="${allocation}" method="post" class="form">
+    <div class="mb-3">
+      <label for="resource" class="form-label">Resource:</label>
+      <select id="resource" th:field="*{resource.id}" class="form-select" required>
+        <option value="" disabled selected>Select a resource</option>
+        <option th:each="resource : ${resources}" th:value="${resource.id}" th:text="${resource.name}"
+                th:selected="${resource.id == allocation.resource.id}"></option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="project" class="form-label">Project:</label>
+      <select id="project" th:field="*{project.id}" class="form-select" required>
+        <option value="" disabled selected>Select a project</option>
+        <option th:each="project : ${projects}" th:value="${project.id}" th:text="${project.name}"
+                th:selected="${project.id == allocation.project.id}"></option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="startDate" class="form-label">Start Date:</label>
+      <input type="date" id="startDate" th:field="*{startDate}" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label for="endDate" class="form-label">End Date:</label>
+      <input type="date" id="endDate" th:field="*{endDate}" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Save Allocation</button>
+  </form>
+</div>
+</body>
+</html>
